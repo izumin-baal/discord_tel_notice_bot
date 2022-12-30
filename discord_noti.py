@@ -12,6 +12,9 @@ ALERT_CHANNEL = 00000000000
 ROLE_ID = 00000000
 # 通知を除外させたいメンバーID(Rhythmとか)
 EXCLUDE_ID = 000000000
+# TTS
+TTS = True
+
 
 client = discord.Client(intents=discord.Intents.all())
 
@@ -29,20 +32,20 @@ async def on_voice_state_update(member, before, after):
             if before.channel is None:
                 if member.nick is None:
                     msg = f'{member.name} が参加しました。'
-                    await alert_channel.send(msg, tts=True)
+                    await alert_channel.send(msg, tts=TTS)
                     await member.add_roles(role)
                 else:
                     msg = f'{member.nick} が参加しました。'
-                    await alert_channel.send(msg, tts=True)
+                    await alert_channel.send(msg, tts=TTS)
                     await member.add_roles(role)
             elif after.channel is None:
                 if member.nick is None:
                     msg = f'{member.name} が退出しました。'
-                    await alert_channel.send(msg, tts=True)
+                    await alert_channel.send(msg, tts=TTS)
                     await member.remove_roles(role)
                 else:
                     msg = f'{member.nick} が退出しました。'
-                    await alert_channel.send(msg, tts=True)
+                    await alert_channel.send(msg, tts=TTS)
                     await member.remove_roles(role)
 
 client.run(BOT_TOKEN)
